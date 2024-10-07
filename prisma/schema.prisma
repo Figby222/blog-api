@@ -18,6 +18,15 @@ model User {
   username String @unique
   email    String @unique
   password String
+  posts    Post[] @relation("PostToUser")
 }
 
-
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  text      String
+  timestamp DateTime @default(now())
+  published Boolean  @default(false)
+  creator   User     @relation(name: "PostToUser", fields: [creatorId], references: [id])
+  creatorId Int
+}
