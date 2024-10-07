@@ -1,0 +1,1 @@
+A Node.js blog API used to manage blog posts
