@@ -1,4 +1,4 @@
-import apiRouter from "./api/index.mjs";
+import apiRouter from "./api/indexRouter.mjs";
 
 export default {
     apiRouter
