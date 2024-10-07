@@ -1,0 +1,24 @@
+Users table
+id PK
+username unique
+email unique
+password
+role ENUM admin, author, or user
+
+Posts table
+id PK
+creatorId FK connects to Users
+title maybe unique
+text
+timestamp
+published boolean default false
+
+Comments table
+id PK
+creatorId FK connects to Users
+postId FK connects to Posts
+text
+timestamp
+
+Role ENUM
+admin, author, or user
