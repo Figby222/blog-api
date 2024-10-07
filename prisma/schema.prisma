@@ -18,6 +18,7 @@ model User {
   username String    @unique
   email    String    @unique
   password String
+  role     Role      @default(USER)
   posts    Post[]    @relation("PostToUser")
   comments Comment[] @relation("CommentToUser")
 }
@@ -41,4 +42,8 @@ model Comment {
   creatorId Int
   post      Post     @relation(name: "CommentToPost", fields: [postId], references: [id])
   postId    Int
+}
+enum Role {
+  AUTHOR
+  USER
 }
