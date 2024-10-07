@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Figby222/blog-api/issues"
   },
-  "homepage": "https://github.com/Figby222/blog-api#readme"
+  "homepage": "https://github.com/Figby222/blog-api#readme",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
 }
