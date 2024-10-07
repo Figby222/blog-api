@@ -1,12 +1,13 @@
 import pool from "./pool.mjs";
+import { genPasswordHash } from "../lib/passwordHashingUtils.mjs";
 
 async function main() {
     await pool.user.createManyAndReturn({
         data: [
-            { username: "cookies", email: "cookies@cookies.com", password: "cookies" },
-            { username: "sandwich", email: "sandwich@sandwich.com", password: "sandwich" },
-            { username: "cookiesSandwich", email: "cookies@sandwich.com", password: "cookiesSandwich" },
-            { username: "sandwichCookies", email: "sandwich@cookies.com", password: "sandwichCookies" }
+            { username: "cookies", email: "cookies@cookies.com", password: genPasswordHash("cookies") },
+            { username: "sandwich", email: "sandwich@sandwich.com", password: genPasswordHash("sandwich") },
+            { username: "cookiesSandwich", email: "cookies@sandwich.com", password: genPasswordHash("cookiesSandwich") },
+            { username: "sandwichCookies", email: "sandwich@cookies.com", password: genPasswordHash("sandwichCookies") }
         ]
     }).then(console.log);
 
