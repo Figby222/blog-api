@@ -14,19 +14,31 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String @unique
-  email    String @unique
+  id       Int       @id @default(autoincrement())
+  username String    @unique
+  email    String    @unique
   password String
-  posts    Post[] @relation("PostToUser")
+  posts    Post[]    @relation("PostToUser")
+  comments Comment[] @relation("CommentToUser")
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   title     String
   text      String
-  timestamp DateTime @default(now())
-  published Boolean  @default(false)
-  creator   User     @relation(name: "PostToUser", fields: [creatorId], references: [id])
+  timestamp DateTime  @default(now())
+  published Boolean   @default(false)
+  creator   User      @relation(name: "PostToUser", fields: [creatorId], references: [id])
   creatorId Int
+  comments  Comment[] @relation("CommentToPost")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  text      String
+  timestamp DateTime @default(now())
+  creator   User     @relation(name: "CommentToUser", fields: [creatorId], references: [id])
+  creatorId Int
+  post      Post     @relation(name: "CommentToPost", fields: [postId], references: [id])
+  postId    Int
 }
