@@ -1,0 +1,5 @@
+GET POST /users 
+GET POST /posts
+GET PUT DELETE /posts/:postId
+POST /posts/:postId/comments
+PUT DELETE /posts/:postId/comments/:commentId
