@@ -1,0 +1,75 @@
+usersListGet
+get users from db
+send users as json
+
+usersPost
+get userInfo from req body
+check if username is unique,
+check if username is alphanumeric,
+check if username is less than 30 characters
+check if email is unique,
+check if email is email,
+check if email is less than 50 characters
+check if password is less than 50 characters
+if any of these are false, send errors as json,
+add user to database
+send user as json
+
+postsListGet
+get posts from db
+send posts as json
+
+postsPost
+make sure user is authenticated
+get postInfo from req body
+check if title is less than 30 characters
+check if text is less than 2500 characters
+get creator from req
+add post to db with creator from req & postInfo from req body
+send post as json
+
+postGet
+get post from db
+send post as json
+
+updatePostPut
+validate postInfo
+check if user is authenticated
+if postInfo invalid, send errors as json with 400 status
+get postInfo from db
+check if userId is the same as postInfo userId
+if not, send 403 response
+update post in db with postInfo from req body
+send post as json
+
+removePostDelete
+check if user is authenticated
+get postInfo from db
+make sure userId is the same as postInfo userId
+if not, send 403 response
+if so, remove the post from db
+
+createCommentPost
+check if user is authenticated
+check if text is less than 255 characters
+if commentInfo invalid, send errors as json with 400 status
+add comment to db with postId & userId from req
+send post as json
+
+editCommentPut
+check if user is authenticated
+validate commentInfo
+if commentInfo invalid, send errors as json with 400 status
+get commentInfo from db
+make sure userId is the same as commentInfo userId
+if not, send errors as json with 403 status
+update comment in db
+send comment as json
+
+removeCommentDelete
+check if user is authenticated
+get commentInfo from db with postInfo from req body
+check if userId is the same as commentInfo userId
+if not, send 403 response
+remove comment from db
+send comment as json
