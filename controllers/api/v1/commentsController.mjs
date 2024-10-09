@@ -106,4 +106,41 @@ const editCommentPut = [
 
 ]
 
-export { commentsListGet, createCommentPost, editCommentPut }
+const removeCommentDelete = [
+    checkIfPostExists,
+    asyncHandler(async (req, res) => {
+        const commentId = req.params.commentId ? parseInt(req.params.commentId) : null;
+    
+        if (!commentId) {
+            return res.status(400).json({
+                message: "Invalid comment id"
+            });
+        }
+    
+        const commentDetails = await db.findCommentGet(req.postId, commentId);
+    
+        if (!commentDetails) {
+            return res.status(404).json({
+                message: `Comment with id ${commentId} in post with id ${req.postId} not found`
+            });
+        }
+    
+        if (!(req.user.id === commentDetails.creatorId)) {
+            return res.status(403).json({
+                message: "You are not the owner of this comment"
+            });
+        }
+    
+        const comment = await db.removeCommentDelete(req.postId, commentId);
+    
+        res.json(comment);
+    })
+
+]
+
+
+
+
+
+
+export { commentsListGet, createCommentPost, editCommentPut, removeCommentDelete }
