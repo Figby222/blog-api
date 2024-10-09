@@ -10,5 +10,19 @@ async function commentsListGet(postId) {
     return comments;
 }
 
+async function createCommentPost(postId, commentDetails) {
+    const comment = await pool.comment.create({
+        data: {
+            postId: postId,
+            creatorId: commentDetails.creatorId,
+            text: commentDetails.text
+        }
+    })
 
-export default { commentsListGet }
+    return comment;
+}
+
+
+
+
+export default { commentsListGet, createCommentPost }
