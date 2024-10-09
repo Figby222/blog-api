@@ -66,4 +66,49 @@ const postGet = asyncHandler(async (req, res) => {
 
     res.json(postDetails);
 })
-export { postsListGet, postsPost, postGet }
+
+const updatePostPut = [
+    validatePost,
+    asyncHandler(async (req, res) => {
+        const errorsResult = validationResult(req);
+        if (!errorsResult.isEmpty()) {
+            return res.status(400).json({
+                postDetails: {
+                    ...req.body,
+                },
+                errors: errorsResult.errors
+            })
+        }
+        const postId = req.params.postId ? parseInt(req.params.postId) : null;
+    
+        if(!postId) {
+            return res.status(400).json({
+                message: "Invalid post id"
+            });
+        }
+    
+        const postDetails = await db.getPost(postId);
+    
+        if (!postDetails) {
+            return res.status(404).json({
+                message: `Post with id ${req.params.postId} not found`
+            });
+        }
+    
+        if (!(postDetails.id === req.user.id)) {
+            return res.status(403).json({
+                message: "You are not the owner of this post"
+            });
+        }
+    
+        const post = await db.updatePostPut(postId, {
+            title: req.body.title,
+            text: req.body.text,
+            published: req.body.published
+        });
+    
+        res.json(post);
+    })
+
+]
+export { postsListGet, postsPost, postGet, updatePostPut }
