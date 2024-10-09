@@ -5,4 +5,6 @@ const commentsRouter = Router({ mergeParams: true });
 
 commentsRouter.get("/", commentsController.commentsListGet);
 
+commentsRouter.post("/", commentsController.createCommentPost);
+
 export default commentsRouter;
