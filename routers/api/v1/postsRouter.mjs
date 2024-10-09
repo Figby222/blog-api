@@ -11,4 +11,6 @@ postsRouter.get("/:postId", postsController.postGet);
 
 postsRouter.put("/:postId", postsController.updatePostPut);
 
+postsRouter.delete("/:postId", postsController.removePostDelete);
+
 export default postsRouter;
