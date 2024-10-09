@@ -46,4 +46,19 @@ async function editCommentPut(postId, commentId, commentDetails) {
 
     return comment;
 }
-export default { commentsListGet, createCommentPost, findCommentGet, editCommentPut }
+
+async function removeCommentDelete(postId, commentId) {
+    const comment = await pool.comment.delete({
+        where: {
+            postId: postId,
+            id: commentId
+        }
+    });
+
+    return comment;
+}
+
+
+
+
+export default { commentsListGet, createCommentPost, findCommentGet, editCommentPut, removeCommentDelete }
