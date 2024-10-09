@@ -33,14 +33,17 @@ async function findCommentGet(postId, commentId) {
     return comment;
 }
 
+async function editCommentPut(postId, commentId, commentDetails) {
+    const comment = await pool.comment.update({
+        where: {
+            postId: postId,
+            id: commentId,
+        },
+        data: {
+            text: commentDetails.text
+        }
+    });
 
-
-
-
-
-
-
-
-
-
-export default { commentsListGet, createCommentPost, findCommentGet }
+    return comment;
+}
+export default { commentsListGet, createCommentPost, findCommentGet, editCommentPut }
