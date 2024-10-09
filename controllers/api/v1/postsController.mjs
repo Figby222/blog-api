@@ -46,4 +46,24 @@ const postsPost = [
         res.json(postDetails);
     })
 ]
-export { postsListGet, postsPost }
+
+const postGet = asyncHandler(async (req, res) => {
+    const postId = req.params.postId ? parseInt(req.params.postId) : null;
+
+    if (!postId) {
+        return res.status(400).json({
+            message: "Invalid post id"
+        });
+    }
+
+    const postDetails = await db.getPost(postId);
+
+    if (!postDetails) {
+        return res.status(404).json({
+            message: `Post with id ${req.params.postId} not found`
+        })
+    }
+
+    res.json(postDetails);
+})
+export { postsListGet, postsPost, postGet }

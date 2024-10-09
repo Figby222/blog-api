@@ -40,4 +40,5 @@ async function getPost(postId) {
     return post;
 }
 
+
 export default { getPostsList, postPosts, getPost }
