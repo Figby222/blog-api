@@ -47,7 +47,7 @@ const createUserPost = [
     asyncHandler(async (req, res) => {
         const errorsResult = validationResult(req);
         if (!errorsResult.isEmpty()) {
-            return res.json({
+            return res.status(400).json({
                 userDetails: {
                     ...req.body
                 },
