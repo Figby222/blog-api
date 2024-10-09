@@ -95,7 +95,7 @@ const updatePostPut = [
             });
         }
     
-        if (!(postDetails.id === req.user.id)) {
+        if (!(postDetails.creatorId === req.user.id)) {
             return res.status(403).json({
                 message: "You are not the owner of this post"
             });
