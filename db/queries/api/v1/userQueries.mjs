@@ -27,6 +27,20 @@ async function postUserCreate(userDetails) {
     return user;
 }
 
+async function findUserByUsername(username) {
+    const user = await pool.user.findUnique({
+        where: {
+            username: username
+        }
+    })
+
+    return user;
+}
 
 
-export default { getUsersList, postUserCreate }
+
+
+
+
+
+export default { getUsersList, postUserCreate, findUserByUsername }
