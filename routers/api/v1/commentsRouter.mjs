@@ -9,4 +9,6 @@ commentsRouter.post("/", commentsController.createCommentPost);
 
 commentsRouter.put("/:commentId", commentsController.editCommentPut);
 
+commentsRouter.delete("/:commentId", commentsController.removeCommentDelete);
+
 export default commentsRouter;
