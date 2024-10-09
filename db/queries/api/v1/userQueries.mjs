@@ -37,10 +37,13 @@ async function findUserByUsername(username) {
     return user;
 }
 
+async function findUserByEmail(email) {
+    const user = await pool.user.findUnique({
+        where: {
+            email: email
+        }
+    });
 
-
-
-
-
-
-export default { getUsersList, postUserCreate, findUserByUsername }
+    return user;
+}
+export default { getUsersList, postUserCreate, findUserByUsername, findUserByEmail }
