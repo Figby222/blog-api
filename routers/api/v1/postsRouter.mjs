@@ -1,7 +1,10 @@
 import { Router } from "express";
+import commentsRouter from "./commentsRouter.mjs";
 import * as postsController from "../../../controllers/api/v1/postsController.mjs";
 
 const postsRouter = Router();
+
+postsRouter.use("/:postId/comments", commentsRouter);
 
 postsRouter.get("/", postsController.postsListGet);
 
