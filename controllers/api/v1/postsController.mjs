@@ -111,4 +111,36 @@ const updatePostPut = [
     })
 
 ]
-export { postsListGet, postsPost, postGet, updatePostPut }
+
+const removePostDelete = asyncHandler(async (req, res) => {
+    const postId = req.params.postId ? parseInt(req.params.postId) : null;
+
+    if (!postId) {
+        return res.status(400).json({
+            message: "Invalid post id"
+        });
+    }
+
+    const postDetails = await db.getPost(postId);
+
+    if (!postDetails) {
+        return res.status(404).json({
+            message: `Post with id ${postId} not found`
+        });
+    }
+
+    if (!(req.user.id === postDetails.id)) {
+        return res.status(403).json({
+            message: "You are not the owner of this post"
+        });
+    }
+
+    const post = await db.removePostDelete(postId);
+
+    res.json(post);
+})
+
+
+
+
+export { postsListGet, postsPost, postGet, updatePostPut, removePostDelete }
