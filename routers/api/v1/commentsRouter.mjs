@@ -7,4 +7,6 @@ commentsRouter.get("/", commentsController.commentsListGet);
 
 commentsRouter.post("/", commentsController.createCommentPost);
 
+commentsRouter.put("/:commentId", commentsController.editCommentPut);
+
 export default commentsRouter;
