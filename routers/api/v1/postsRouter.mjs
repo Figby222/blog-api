@@ -9,4 +9,6 @@ postsRouter.post("/", postsController.postsPost);
 
 postsRouter.get("/:postId", postsController.postGet);
 
+postsRouter.put("/:postId", postsController.updatePostPut);
+
 export default postsRouter;
