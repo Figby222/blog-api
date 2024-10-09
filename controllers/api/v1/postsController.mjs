@@ -129,7 +129,7 @@ const removePostDelete = asyncHandler(async (req, res) => {
         });
     }
 
-    if (!(req.user.id === postDetails.id)) {
+    if (!(req.user.id === postDetails.creatorId)) {
         return res.status(403).json({
             message: "You are not the owner of this post"
         });
