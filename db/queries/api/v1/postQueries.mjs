@@ -14,6 +14,17 @@ async function getPostsList() {
     return posts;
 }
 
+async function postPosts(postDetails) {
+    const post = await pool.post.create({
+        data: {
+            title: postDetails.title,
+            text: postDetails.text,
+            published: postDetails.published,
+            creatorId: postDetails.creatorId
+        }
+    })
 
+    return post;
+}
 
-export default { getPostsList }
+export default { getPostsList, postPosts }
