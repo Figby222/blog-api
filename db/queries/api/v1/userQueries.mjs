@@ -14,5 +14,19 @@ async function getUsersList() {
     return users;
 }
 
+async function postUserCreate(userDetails) {
+    const user = await pool.user.create({
+        data: {
+            username: userDetails.username,
+            email: userDetails.email,
+            password: userDetails.password,
+            role: userDetails.role
+        }
+    })
 
-export default { getUsersList }
+    return user;
+}
+
+
+
+export default { getUsersList, postUserCreate }
