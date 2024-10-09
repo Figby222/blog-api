@@ -40,5 +40,25 @@ async function getPost(postId) {
     return post;
 }
 
+async function updatePostPut(postId, postDetails) {
+    const post = await pool.post.update({
+        where: {
+            id: postId
+        },
+        data: {
+            title: postDetails.title,
+            text: postDetails.text,
+            published: postDetails.published
+        }
+    });
+    
+    return post
+}
 
-export default { getPostsList, postPosts, getPost }
+
+
+
+
+
+
+export default { getPostsList, postPosts, getPost, updatePostPut }
