@@ -27,4 +27,17 @@ async function postPosts(postDetails) {
     return post;
 }
 
-export default { getPostsList, postPosts }
+async function getPost(postId) {
+    const post = await pool.post.findUnique({
+        where: {
+            id: postId
+        },
+        include: {
+            comments: true,
+        }
+    })
+
+    return post;
+}
+
+export default { getPostsList, postPosts, getPost }
