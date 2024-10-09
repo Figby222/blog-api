@@ -55,10 +55,15 @@ async function updatePostPut(postId, postDetails) {
     return post
 }
 
+async function removePostDelete(postId) {
+    const post = await pool.post.delete({
+        where: {
+            id: postId
+        }
+    });
+
+    return post;
+}
 
 
-
-
-
-
-export default { getPostsList, postPosts, getPost, updatePostPut }
+export default { getPostsList, postPosts, getPost, updatePostPut, removePostDelete }
