@@ -29,7 +29,7 @@ const postsPost = [
     asyncHandler(async (req, res) => {
         const errorsResult = validationResult(req);
         if (!errorsResult.isEmpty()) {
-            return res.json({
+            return res.status(400).json({
                 postDetails: {
                     ...req.body,
                 },
