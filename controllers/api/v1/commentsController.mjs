@@ -61,4 +61,49 @@ const createCommentPost = [
         res.json(comment);
     })
 ]
-export { commentsListGet, createCommentPost }
+
+const editCommentPut = [
+    checkIfPostExists,
+    validateComment,
+    asyncHandler(async (req, res) => {
+        const errorsResult = validationResult(req);
+        if (!errorsResult.isEmpty()) {
+            return res.status(400).json({
+                commentDetails: {
+                    ...req.body,
+                },
+                errors: errorsResult.errors
+            });
+        }
+        const commentId = req.params.commentId ? parseInt(req.params.commentId) : null;
+    
+        if (!commentId) {
+            return res.status(400).json({
+                message: "Invalid comment id"
+            });
+        }
+    
+        const commentDetails = await db.findCommentGet(req.postId, commentId);
+    
+        if (!commentDetails) {
+            return res.status(404).json({
+                message: `Comment with id ${commentId} in post with id ${req.postId} not found`
+            });
+        }
+    
+        if (!(commentDetails.creatorId === req.user.id)) {
+            return res.status(403).json({
+                message: "You are not the owner of this comment"
+            });
+        }
+    
+        const comment = await db.editCommentPut(req.postId, commentId, {
+            text: req.body.text
+        });
+    
+        res.json(comment);
+    })
+
+]
+
+export { commentsListGet, createCommentPost, editCommentPut }
