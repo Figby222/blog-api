@@ -22,7 +22,25 @@ async function createCommentPost(postId, commentDetails) {
     return comment;
 }
 
+async function findCommentGet(postId, commentId) {
+    const comment = await pool.comment.findUnique({
+        where: {
+            postId: postId,
+            id: commentId
+        }
+    });
+
+    return comment;
+}
 
 
 
-export default { commentsListGet, createCommentPost }
+
+
+
+
+
+
+
+
+export default { commentsListGet, createCommentPost, findCommentGet }
