@@ -1,6 +1,7 @@
 import passport from "passport";
 import LocalStrategy from "passport-local";
 import pool from "../db/pool.mjs";
+import bcrypt from "bcryptjs";
 
 passport.use(
     new LocalStrategy(async (username, password, done) => {
@@ -29,6 +30,7 @@ passport.use(
         }
     })
 )
+
 
 
 export default passport;
