@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import db from "../../../db/queries/api/v1/postQueries.mjs";
 import { body, validationResult } from "express-validator";
+import passport from "../../../config/passport.mjs";
 
 const validatePost = [
     body("creatorId")
@@ -25,6 +26,7 @@ const postsListGet = asyncHandler(async (req, res) => {
 })
 
 const postsPost = [
+    passport.authenticate("jwt", { session: false }),
     validatePost,
     asyncHandler(async (req, res) => {
         const errorsResult = validationResult(req);
@@ -40,7 +42,7 @@ const postsPost = [
             title: req.body.title,
             text: req.body.text,
             published: req.body.published,
-            creatorId: parseInt(req.body.creatorId)
+            creatorId: req.user.id
         });
     
         res.json(postDetails);
