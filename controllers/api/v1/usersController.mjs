@@ -2,6 +2,11 @@ import asyncHandler from "express-async-handler";
 import db from "../../../db/queries/api/v1/userQueries.mjs";
 import { genPasswordHash } from "../../../lib/passwordHashingUtils.mjs";
 import { body, validationResult } from "express-validator";
+import JWT from "jsonwebtoken";
+import "dotenv/config";
+import passport from "../../../config/passport.mjs";
+
+const ONE_DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
 
 const validateUser = [
     body("username")
@@ -66,4 +71,34 @@ const createUserPost = [
     })
 ]
 
-export { usersListGet, createUserPost };
+const logInPost = [
+    asyncHandler(async (req, res) => {
+        
+        passport.authenticate("local", { session: false }, (err, user, info) => {
+            console.log(user);
+            if(!user) {
+                return res.status(401).json({
+                    message: "Invalid username or password"
+                });
+            }
+
+            JWT.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: ONE_DAY_IN_MILLISECONDS / 1000 }, (err, token) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({
+                        message: "An error has occurred"
+                    });
+                }
+
+        
+                return res.json({
+                    token: token
+                })
+            })
+        })(req, res)
+
+    })
+
+]
+
+export { usersListGet, createUserPost, logInPost };
