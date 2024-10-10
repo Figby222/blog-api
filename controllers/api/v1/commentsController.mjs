@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import db from "../../../db/queries/api/v1/commentQueries.mjs";
 import postDb from "../../../db/queries/api/v1/postQueries.mjs";
 import { body, validationResult } from "express-validator";
+import passport from "../../../config/passport.mjs";
 
 const validateComment = [
     body("creatorId")
@@ -41,6 +42,7 @@ const commentsListGet = [
 ]
 
 const createCommentPost = [
+    passport.authenticate("jwt", { session: false }),
     checkIfPostExists,
     validateComment,
     asyncHandler(async (req, res) => {
