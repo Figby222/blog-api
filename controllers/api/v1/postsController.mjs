@@ -70,6 +70,7 @@ const postGet = asyncHandler(async (req, res) => {
 })
 
 const updatePostPut = [
+    passport.authenticate("jwt", { session: false }),
     validatePost,
     asyncHandler(async (req, res) => {
         const errorsResult = validationResult(req);
