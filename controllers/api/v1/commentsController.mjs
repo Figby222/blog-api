@@ -110,6 +110,7 @@ const editCommentPut = [
 ]
 
 const removeCommentDelete = [
+    passport.authenticate("jwt", { session: false }),
     checkIfPostExists,
     asyncHandler(async (req, res) => {
         const commentId = req.params.commentId ? parseInt(req.params.commentId) : null;
@@ -140,7 +141,6 @@ const removeCommentDelete = [
     })
 
 ]
-
 
 
 
