@@ -2,6 +2,15 @@ import passport from "passport";
 import LocalStrategy from "passport-local";
 import pool from "../db/pool.mjs";
 import bcrypt from "bcryptjs";
+import passportJwt from "passport-jwt";
+import "dotenv/config";
+const JwtStrategy = passportJwt.Strategy;
+const ExtractJwt = passportJwt.ExtractJwt;
+
+const jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWT_SECRET
+}
 
 passport.use(
     new LocalStrategy(async (username, password, done) => {
@@ -30,6 +39,30 @@ passport.use(
         }
     })
 )
+
+passport.use(
+    new JwtStrategy(jwtOptions, async (jwt_payload, done) => {
+        try {
+            const user = await pool.user.findUnique({
+                where: {
+                    id: parseInt(jwt_payload.id)
+                }
+            });
+    
+            if (!user) {
+                done(null, false, { message: "User not found" });
+                return;
+            }
+
+            done(null, user);
+        } catch (err) {
+            done(err);
+        }
+
+
+    })
+)
+
 
 
 
