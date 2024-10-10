@@ -65,6 +65,7 @@ const createCommentPost = [
 ]
 
 const editCommentPut = [
+    passport.authenticate("jwt", { session: false }),
     checkIfPostExists,
     validateComment,
     asyncHandler(async (req, res) => {
