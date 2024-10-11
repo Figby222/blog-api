@@ -78,7 +78,7 @@ const logInPost = [
             console.log(user);
             if(!user) {
                 return res.status(401).json({
-                    message: "Invalid username or password"
+                    message: "Invalid email or password"
                 });
             }
 

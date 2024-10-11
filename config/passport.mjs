@@ -13,11 +13,11 @@ const jwtOptions = {
 }
 
 passport.use(
-    new LocalStrategy(async (username, password, done) => {
+    new LocalStrategy({ usernameField: "email", passwordField: "password" }, async (email, password, done) => {
         try {
             const user = await pool.user.findUnique({
                 where: {
-                    username: username
+                    email: email
                 }
             });
     
