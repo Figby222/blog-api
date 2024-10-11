@@ -90,9 +90,9 @@ const logInPost = [
                     });
                 }
 
-        
+                res.header(`Authorization`, `Bearer ${token}`);
                 return res.json({
-                    token: token
+                    message: "You have successfully logged in"
                 })
             })
         })(req, res)
