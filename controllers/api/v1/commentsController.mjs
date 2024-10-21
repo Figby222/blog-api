@@ -56,7 +56,7 @@ const createCommentPost = [
             });
         }
         const comment = await db.createCommentPost(req.postId, {
-            creatorId: parseInt(req.body.creatorId),
+            creatorId: parseInt(req.user.id),
             text: req.body.text
         });
     
