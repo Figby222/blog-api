@@ -5,6 +5,7 @@ const app = express();
 import routers from "./routers/index.mjs";
 
 app.use(cors());
+app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }))
 app.use("/api", routers.apiRouter);
@@ -16,7 +17,6 @@ app.use((err, req, res, next) => {
         message: err.message
     })
 })
-
 
 
 app.listen(process.env.PORT, () => {
