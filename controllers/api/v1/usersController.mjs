@@ -90,8 +90,9 @@ const logInPost = [
                     });
                 }
 
-                res.header(`Authorization`, `Bearer ${token}`);
-                return res.json({
+                res.setHeader(`Authorization`, `Bearer ${token}`);
+                res.setHeader("Access-Control-Expose-Headers", "Authorization");
+                res.json({
                     message: "You have successfully logged in"
                 })
             })
