@@ -102,4 +102,13 @@ const logInPost = [
 
 ]
 
-export { usersListGet, createUserPost, logInPost };
+const userPostsGet = [
+    passport.authenticate("JWT", { session: false }),
+    asyncHandler(async (req, res) => {
+        const userPosts = await db.getUserPosts(req.user.id);
+    
+        res.json(userPosts);
+    })
+]
+
+export { usersListGet, createUserPost, logInPost, userPostsGet };
