@@ -103,7 +103,7 @@ const logInPost = [
 ]
 
 const userPostsGet = [
-    passport.authenticate("JWT", { session: false }),
+    passport.authenticate("jwt", { session: false }),
     asyncHandler(async (req, res) => {
         const userPosts = await db.getUserPosts(req.user.id);
     
