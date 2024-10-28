@@ -41,6 +41,11 @@ async function getPost(postId) {
             id: postId
         },
         include: {
+            creator: {
+                select: {
+                    username: true
+                }
+            },
             comments: {
                 select: {
                     id: true,
