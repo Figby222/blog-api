@@ -46,4 +46,19 @@ async function findUserByEmail(email) {
 
     return user;
 }
-export default { getUsersList, postUserCreate, findUserByUsername, findUserByEmail }
+
+async function getUserPosts(userId) {
+    const userPosts = pool.post.findMany({
+        where: { creatorId: userId },
+        select: {
+            id: true,
+            title: true,
+            text: true,
+            timestamp: true,
+            published: true,
+        }
+    });
+
+    return userPosts;
+}
+export default { getUsersList, postUserCreate, findUserByUsername, findUserByEmail, getUserPosts }
