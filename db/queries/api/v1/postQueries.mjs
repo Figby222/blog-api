@@ -2,6 +2,9 @@ import pool from "../../../pool.mjs";
 
 async function getPostsList() {
     const posts = await pool.post.findMany({
+        where: {
+            published: true,
+        },
         select: {
             id: true,
             title: true,
