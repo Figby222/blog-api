@@ -7,6 +7,8 @@ usersRouter.get("/", usersController.usersListGet);
 
 usersRouter.post("/", usersController.createUserPost);
 
-usersRouter.post("/log-in", usersController.logInPost)
+usersRouter.post("/log-in", usersController.logInPost);
+
+usersRouter.get("/posts", usersController.userPostsGet);
 
 export default usersRouter;
