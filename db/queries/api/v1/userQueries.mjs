@@ -56,6 +56,11 @@ async function getUserPosts(userId) {
             text: true,
             timestamp: true,
             published: true,
+            creator: {
+                select: {
+                    username: true,
+                }
+            }
         }
     });
 
