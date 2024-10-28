@@ -7,7 +7,12 @@ async function getPostsList() {
             title: true,
             timestamp: true,
             published: true,
-            creatorId: true
+            creatorId: true,
+            creator: {
+                select: {
+                    username: true
+                }
+            }
         }
     })
 
