@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import db from "../../../db/queries/api/v1/postQueries.mjs";
 import { body, validationResult } from "express-validator";
+import { handleJWTUserAuthorization } from "./util.mjs";
 import passport from "../../../config/passport.mjs";
 
 const validatePost = [
@@ -26,7 +27,7 @@ const postsListGet = asyncHandler(async (req, res) => {
 })
 
 const postsPost = [
-    passport.authenticate("jwt", { session: false }),
+    handleJWTUserAuthorization,
     validatePost,
     asyncHandler(async (req, res) => {
         const errorsResult = validationResult(req);
@@ -70,7 +71,7 @@ const postGet = asyncHandler(async (req, res) => {
 })
 
 const updatePostPut = [
-    passport.authenticate("jwt", { session: false }),
+    handleJWTUserAuthorization,
     validatePost,
     asyncHandler(async (req, res) => {
         const errorsResult = validationResult(req);
@@ -116,7 +117,7 @@ const updatePostPut = [
 ]
 
 const removePostDelete = [
-    passport.authenticate("jwt", { session: false }),
+    handleJWTUserAuthorization,
     asyncHandler(async (req, res) => {
         const postId = req.params.postId ? parseInt(req.params.postId) : null;
     
