@@ -5,6 +5,7 @@ import { body, validationResult } from "express-validator";
 import JWT from "jsonwebtoken";
 import "dotenv/config";
 import passport from "../../../config/passport.mjs";
+import { handleJWTUserAuthorization } from "./util.mjs";
 
 const ONE_DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
 
@@ -99,11 +100,10 @@ const logInPost = [
         })(req, res)
 
     })
-
 ]
 
 const userPostsGet = [
-    passport.authenticate("jwt", { session: false }),
+    handleJWTUserAuthorization,
     asyncHandler(async (req, res) => {
         const userPosts = await db.getUserPosts(req.user.id);
     
