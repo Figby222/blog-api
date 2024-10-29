@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import db from "../../../db/queries/api/v1/commentQueries.mjs";
 import postDb from "../../../db/queries/api/v1/postQueries.mjs";
 import { body, validationResult } from "express-validator";
+import { handleJWTUserAuthorization } from "./util.mjs";
 import passport from "../../../config/passport.mjs";
 
 const validateComment = [
@@ -42,7 +43,7 @@ const commentsListGet = [
 ]
 
 const createCommentPost = [
-    passport.authenticate("jwt", { session: false }),
+    handleJWTUserAuthorization,
     checkIfPostExists,
     validateComment,
     asyncHandler(async (req, res) => {
@@ -65,7 +66,7 @@ const createCommentPost = [
 ]
 
 const editCommentPut = [
-    passport.authenticate("jwt", { session: false }),
+    handleJWTUserAuthorization,
     checkIfPostExists,
     validateComment,
     asyncHandler(async (req, res) => {
@@ -106,11 +107,10 @@ const editCommentPut = [
     
         res.json(comment);
     })
-
 ]
 
 const removeCommentDelete = [
-    passport.authenticate("jwt", { session: false }),
+    handleJWTUserAuthorization,
     checkIfPostExists,
     asyncHandler(async (req, res) => {
         const commentId = req.params.commentId ? parseInt(req.params.commentId) : null;
