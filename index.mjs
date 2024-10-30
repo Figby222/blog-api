@@ -14,7 +14,7 @@ app.use("/api", routers.apiRouter);
 app.use((err, req, res, next) => {
     console.error(err);
     return res.status(500).json({
-        message: err.message
+        message: "An error has occurred"
     })
 })
 
