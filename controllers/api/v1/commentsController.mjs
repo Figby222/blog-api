@@ -128,8 +128,10 @@ const removeCommentDelete = [
                 message: `Comment with id ${commentId} in post with id ${req.postId} not found`
             });
         }
+
+        const postDetails = await db.getPost(commentDetails.postId);
     
-        if (!(req.user.id === commentDetails.creatorId)) {
+        if (!(req.user.id === commentDetails.creatorId) && !(req.user.id === postDetails.creatorId)) {
             return res.status(403).json({
                 message: "You are not the owner of this comment"
             });
