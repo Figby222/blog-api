@@ -68,7 +68,7 @@ const createUserPost = [
             role: req.body.role
         })
     
-        res.json(userDetails);
+        res.json({ username: userDetails.username });
     })
 ]
 
